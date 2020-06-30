@@ -4,7 +4,7 @@ FROM ubuntu:latest
 
 # Build Instructions
 # What we want to do to this image to make it our own and fit it for our purposes
-ENV NAME="Danny"
+ENV NAME="Matt"
 RUN apt-get update -y
 RUN apt-get install python3 -y
 COPY app /app/
