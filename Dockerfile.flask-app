@@ -1,0 +1,34 @@
+FROM ubuntu:latest
+
+#Build Instructions
+ENV PG_HOST=0.0.0.0
+ENV PG_PORT=5432
+ENV IG_DATABASE=image_gallery
+ENV IG_USER=postgres
+ENV IG_PASSWD=auburn2020
+ENV IG_PASSWD_FILE=/psswd
+ENV S3_IMAGE_BUCKET=edu.au.cc.image-gallery-config-mtw0038
+ 
+RUN apt-get update -y
+RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata
+RUN apt-get install python3 -y && apt-get install postgresql -y
+RUN apt-get install git -y && apt-get install gcc -y
+RUN apt-get install python3-dev -y && apt-get install python3-pip -y
+RUN apt-get install xenial -y
+
+RUN useradd -m ig
+
+COPY --chown=ig:ig python-image-gallery /python-image-gallery/ 
+WORKDIR /python-image-gallery/
+RUN pip3 install -r requirements.txt --user
+WORKDIR /python-image-gallery/gallery/ui/
+
+USER ig
+
+
+
+#Boot Command
+ENV FLASK_APP=hello.py
+ENV FLASK_ENV=development
+CMD ["/usr/bin/python3", "app.py"]
+
