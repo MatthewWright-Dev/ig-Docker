@@ -30,5 +30,5 @@ EXPOSE 8888
 #Boot Command
 ENV FLASK_APP=gallery/ui/app.py
 ENV FLASK_ENV=development
-CMD ["uwsgi", "--http", ":8888", "--module", "app:ui"]
+CMD ["uwsgi", "--http", ":8888", "--module", "gallery.ui.app:app", "--master", "--processes", "4", "--threads", "2"]
 
