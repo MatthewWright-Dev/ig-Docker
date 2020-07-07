@@ -3,13 +3,13 @@
 FROM ubuntu:latest
 
 #Build Instructions
-ENV PG_HOST=0.0.0.0
+ENV PG_HOST=image-gallery.cgh7vkgen2ke.us-east-2.rds.amazonaws.com
 ENV PG_PORT=5432
 ENV IG_DATABASE=image_gallery
-ENV IG_USER=postgres
-ENV IG_PASSWD=auburn2020
-ENV IG_PASSWD_FILE=/psswd
-ENV S3_IMAGE_BUCKET=edu.au.cc.image-gallery-config-mtw0038
+ENV IG_USER=image_gallery
+ENV IG_PASSWD=deadlinejune7
+ENV IG_PASSWD_FILE=/pssword
+ENV S3_IMAGE_BUCKET=image.gallery.photos.mtw0038
  
 RUN apt-get update -y
 RUN apt-get install python3 -y #&& apt-get install postgresql -y
@@ -22,6 +22,7 @@ COPY --chown=ig:ig python-image-gallery /python-image-gallery/
 WORKDIR /python-image-gallery/
 RUN pip3 install -r requirements.txt 
 WORKDIR /python-image-gallery/
+CMD ["./app/createDB"]
 
 USER ig
 
